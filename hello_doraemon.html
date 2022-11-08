@@ -1,0 +1,424 @@
+<html>
+ <head></head>
+ <body>
+  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>你好，哆啦A梦！</title>
+  <script src="https://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+  <noscript><h3><font size="5" color="red">此页面需要浏览器支持javascript，您的浏览器不支持（未开启）JavaScript。</font></h3>
+  </noscript>
+  <style>
+body,html{
+    height: 100%;
+    width: 100%;
+}
+ </style>
+  <style>
+* {
+	margin:0px;
+	padding:0px;
+	border:0px;
+}
+.box_fixed {
+	display:none;
+	position:fixed;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	z-index:999;
+	background-color:rgba(0,0,0,0.6);
+}
+.box_fixed_box {
+	display:block;
+	width:70%;
+	height:220px;
+	background-color:#ffffff;
+	border-radius:2px;
+	margin:auto;
+	margin-top:calc((100vh - 220px)/2);
+}
+.box_fixed_box h4 {
+	height:50px;
+	line-height:50px;
+	font-size:18px;
+	text-align:center;
+	padding-top:10px;
+}
+.box_fixed_box span {
+	display:block;
+	height:99px;
+	line-height:30px;
+	font-size:16px;
+	padding:0px 20px;
+	color:#8a8a8a;
+}
+.box_fixed_box div {
+	height:60px;
+	line-height:60px;
+	text-align:center;
+	font-size:15px;
+	color:#57dd57;
+	border-top:1px solid #eeeeee;
+}
+</style>
+  <script>
+function alert1(txt) {
+        var html = "<div class=\"box_fixed\"><div class=\"box_fixed_box\"><h4>提示</h4><span></span><div>确定</div></div></div>";
+        $("body").append(html);
+        $(".box_fixed_box span").text(txt);
+        $(".box_fixed").show();
+        $(".box_fixed_box div").click(function() {
+            $(".box_fixed").remove();
+        });
+    };
+</script>
+  <style>
+.orient-layer {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 18px;
+    text-align: center;
+    color: #fff;
+    z-index: 9999;
+    background: #000;
+}
+
+.orient-layer-tip {
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+}
+
+.orient-layer-tip:before {
+    display: block;
+    content: "";
+    width: 80px;
+    height: 130px;
+    margin: 0 auto 5%;
+    background-image: url(data:image/png) no-repeat center/contain;
+    transform: rotate(90deg);
+    animation: rotation infinite 1.5s ease-in-out;
+}
+
+@keyframes rotation {
+    10%, 100%, 90% {
+        transform: rotate(90deg);
+    }
+
+    50%, 60% {
+        transform: rotate(0deg);
+    }
+}
+  </style> <!--提示用户竖屏浏览-->
+  <div id="orientLayer" class="orient-layer">
+   <h3 class="orient-layer-tip"><img src="https://img-blog.csdnimg.cn/20201208162709170.png#pic_center"><br>为了您更好的体验，请使用横屏浏览。</h3>
+  </div> <!--游戏部分 js要横屏后执行，所以写下面了。-->
+  <style>
+  .logo-background {
+    height: 100%;
+    width: 100%;
+    background-color: #000000;
+    box-shadow:2px 2px 20px rgb(0,255,255);
+    }
+  .logo {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    top: 17vh;
+    left: 17vw;
+    opacity: 0;
+    }
+  .bg1 p {
+  font-size: 2vw;
+  color: #868686;
+}
+
+.playGame {
+  position: absolute;
+  width: 30vw;
+  height: 30vh;
+  background-color: #dcdcdc;
+  background-image: url("./images/logo2.png");
+  background-size: auto 100%;
+  border-radius: 2vw;
+  box-shadow: 10px 10px 5px rgba( 0, 0, 0, 0.1 ), -10px -10px 5px rgba( 255, 255, 255, 1 );
+  top: 28vh;
+  left: 17vw;
+}
+
+.playGame div {
+  position: absolute;
+  width: 100%;
+  background-color: rgba( 0, 0, 0, 0.6 );
+  border-radius: 0 0 2vw 2vw;
+  font-size: 4vw;
+  font-weight: 900;
+  color: white;
+  bottom: 0;
+}
+
+.contact {
+  position: absolute;
+  width: 14vw;
+  height: 12vh;
+  background-color: #efeeee;
+  border-radius: 1.5vw;
+  text-align: center;
+  line-height: 12vh;
+  box-shadow: 10px 10px 10px rgba( 0, 0, 0, 0.1 ), -10px -10px 10px rgba( 255, 255, 255, 1 );
+  color: #868686;
+  top: 80vh;
+  left: 8vw;
+}
+
+.plays {
+  position: absolute;
+  width: 24vw;
+  height: 12vh;
+  background-color: #c0c0c0;
+  font-size: 6vh;
+  font-weight: 700;
+  text-align: center;
+  line-height: 12vh;
+  color: white;
+  top: 80vh;
+  left: 56vw;
+  display: none;
+}
+.bg1 {
+  width: 100%;
+  height: 100%;
+  background-color: #efeeee;
+  display: none;
+}
+.bg {
+  width: 100%;
+  height: 100%;
+  }
+.game {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: none;
+  }
+  </style>
+  <audio class="backgroundMusic"></audio>
+  <div id="bg">
+   <div class="logo-background"><img class="logo" src="images/logo.png">
+   </div>
+   <div class="bg1">
+    <div class="playGame">
+     <div>
+      故事模式
+     </div>
+    </div>
+    <div class="plays">
+     开始游戏
+    </div>
+    <style>
+  .scorecard {
+  background: -moz-linear-gradient(center top , #EBEBD8 0%, #E4E4C8 100%) repeat scroll 0 0 transparent; 
+border: 1px solid #DBDBBD; 
+border-radius: 15px 15px 15px 15px; 
+box-shadow: 0 1px #B2B29D; 
+display: block;
+float: left; 
+height: 40px; 
+margin: 0 5px 8px 0; 
+padding: 0 10px;
+white-space: nowrap; 
+background-color: #DBDBBD;
+display: flex;
+justify-content: space-between;
+}
+.dorayaki {
+  width:40px;
+  height:30px;
+  display: flex;
+justify-content: space-between;
+  }
+.score {
+  display: flex;
+justify-content: space-between;
+  }
+.install {
+  width:45px;
+  height:45px;
+  }
+.new {
+  width:30px;
+  height:30px;
+  display: flex;
+justify-content: space-between;
+  }
+.idShows {
+   background: -moz-linear-gradient(center top , #EBEBD8 0%, #E4E4C8 100%) repeat scroll 0 0 transparent; 
+border: 1px solid #DBDBBD; 
+border-radius: 15px 15px 15px 15px; 
+box-shadow: 0 1px #B2B29D; 
+display: block;
+float: left; 
+height: 40px; 
+margin: 0 5px 8px 0; 
+padding: 0 10px;
+white-space: nowrap; 
+background-color: #DBDBBD;
+display: flex;
+justify-content: space-between;
+  }
+.login {
+  background: -moz-linear-gradient(center top , #EBEBD8 0%, #E4E4C8 100%) repeat scroll 0 0 transparent; 
+border: 1px solid #00daff; 
+border-radius: 15px 15px 15px 15px; 
+box-shadow: 0 1px #B2B29D; 
+display: block;
+float: left; 
+height: 40px; 
+margin: 0 5px 8px 0; 
+padding: 0 10px;
+white-space: nowrap; 
+background-color: #00daff;
+display: flex;
+justify-content: space-between;
+  }
+.idImg {
+  width:30px;
+  height:30px;
+  display: flex;
+justify-content: space-between;
+  }
+  </style>
+  <div class="idShows">
+  <img class="idImg" src="data:image/png;base64,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"/>
+  <p class="username">账号未登录</p>
+  <button class="login" onclick="alert1('暂不支持登录')">登录</button>
+  </div>
+    <div class="scorecard">
+    <img class="dorayaki" src="images/dorayaki.png">铜锣烧数：<p class="score">null</p> 
+     <img class="new" src="images/new.png" onclick="alert1('进入游戏完成任务可获得哆啦A梦的铜锣烧。')">
+    </div> 
+    <img class="install" src="images/install.png" onclick="install()">
+   </div>
+  </div>
+  <div class="game">
+  <!--开始游戏-->
+   <h6>开发中…请耐心等待…<br>By caofangkuai studio 20221106.</h6> <a href="index.html">点此返回首页</a>
+  </div> 
+  <!-- -->
+  <script>
+ //横屏提示
+ document.querySelector("#orientLayer").style.display = "table";
+ //首次检测
+ if (window.orientation === 180 || window.orientation === 0) {//竖屏
+            document.querySelector("#orientLayer").style.display = "table";
+        }
+        if (window.orientation === 90 || window.orientation === -90 ){//横屏
+            document.querySelector("#orientLayer").style.display = "none";
+            var logo;
+  setTimeout(
+    function() {
+      var i = 0;
+      logo = setInterval(
+        function() {
+          if( i < 1 ) {
+            i = i + 0.01;
+            document.querySelector( ".logo" ).style.opacity = i;
+            //document.querySelector( ".name" ).style.opacity = i;
+          }
+          else {
+            clearTimeout( logo );
+            setTimeout(
+              function() {
+                document.querySelector( ".logo-background" ).style.display = "none";
+                document.querySelector( ".bg1" ).style.display = "block";
+              }, 800
+            );
+          }
+        }, 17
+      );
+    }, 800
+  );
+  }
+//检测需要分开
+
+  //二次检测（首次检测后任意旋转屏幕检测）
+var isOrientation=function () {
+    function orientLayerTip(){
+        if (window.orientation === 180 || window.orientation === 0) {//竖屏
+            document.querySelector("#orientLayer").style.display = "table";
+        }
+        if (window.orientation === 90 || window.orientation === -90 ){//横屏
+            document.querySelector("#orientLayer").style.display = "none";
+  var logo;
+  setTimeout(
+    function() {
+      var i = 0;
+      logo = setInterval(
+        function() {
+          if( i < 1 ) {
+            i = i + 0.01;
+            document.querySelector( ".logo" ).style.opacity = i;
+            //document.querySelector( ".name" ).style.opacity = i;
+          }
+          else {
+            clearTimeout( logo );
+            setTimeout(
+              function() {
+                document.querySelector( ".logo-background" ).style.display = "none";
+                document.querySelector( ".bg1" ).style.display = "block";
+              }, 800
+            );
+          }
+        }, 17
+      );
+    }, 800
+  );
+        }
+    }
+    window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", orientLayerTip, false);
+}
+isOrientation();
+ </script>
+  <script>
+ // 手指触摸屏幕
+document.querySelector( ".playGame" ).addEventListener( 'touchstart', function( m ) {
+  m.preventDefault(); // 阻止屏幕滚动的默认行为
+  
+  document.querySelector( ".plays" ).style.display = "block";
+});
+
+// 手指触摸屏幕
+document.querySelector( ".plays" ).addEventListener( 'touchstart', function( m ) {
+  m.preventDefault(); // 阻止屏幕滚动的默认行为
+  
+  document.querySelector( ".plays" ).style.backgroundColor = "#00ffff";
+  document.querySelector( "#bg" ).style.display = "none";
+  document.querySelector(".game").style.display = "table";
+  //document.querySelector( ".backgroundMusic" ).src = "music/doraemon.mp3";
+  
+  //setTimeout( function() { document.querySelector( ".backgroundMusic" ).play(); }, 3000 ); // 开启背景音乐
+});
+ </script>
+  <script>
+ function install(){
+ if(confirm("是否开启/关闭音乐（取消为关闭，确定为开启）")){
+  document.querySelector( ".backgroundMusic" ).src = "music/doraemon.mp3";
+  setTimeout( function() { document.querySelector( ".backgroundMusic" ).play(); }, 3000 ); // 开启背景音乐
+  alert1("开启成功");
+  }else{
+  document.querySelector( ".backgroundMusic" ).src = "";
+  document.querySelector( ".backgroundMusic" ).pause();
+  document.querySelector( ".backgroundMusic" ).currentTime = 0;
+  // 关闭背景音乐
+  alert1("关闭成功");
+  }
+ }
+ </script>
+ </body>
+</html>
